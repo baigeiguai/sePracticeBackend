@@ -1,21 +1,23 @@
 {
-    "compilerOptions": {
-        "outDir": "lib",
-        "module": "commonjs",
-        "lib": ["es6"],
-        "target": "es2016",
-        "declaration": true,
-        "noImplicitAny": false,
-        "experimentalDecorators": true,
-        "sourceMap": false,
-        "esModuleInterop": true,
-        "strict": true,
-        "allowJs": true,
-        "strictNullChecks": false,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true
-    },
-    "include": [
-      "src"
-    ]
+  "compilerOptions": {
+    "allowJs": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "es6"
+    ],
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "outDir": "lib",
+    "skipLibCheck": true,
+    "sourceMap": false,
+    "strict": true,
+    "strictNullChecks": false,
+    "target": "es2016",
+  },
+  "include": [
+    "src/**/*"
+  ]
 }

@@ -1,24 +1,33 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "module": "es6",
-    "strict": true,
-    "noImplicitAny": false,
-    "noEmit": true,
     "allowJs": true,
-    "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
     "baseUrl": "./src",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "jsx": "preserve",
+    "module": "es6",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noImplicitAny": false,
     "paths": {
-      "~/*": ["./*"]
+      "~/*": [
+        "./*"
+      ]
     },
-    "typeRoots": ["node_modules/@types", "node_modules/phaser/types"],
-    "types": ["phaser"]
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2016",
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules/phaser/types"
+    ],
+    "types": [
+      "phaser"
+    ],
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }

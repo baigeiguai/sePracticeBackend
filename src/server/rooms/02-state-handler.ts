@@ -23,12 +23,11 @@ export class State extends Schema {
         this.players.delete(sessionId);
     }
 
-    movePlayer (sessionId: string, movement: any) {
+    movePlayer(sessionId: string, movement: any) {
         if (movement.x) {
-            this.players.get(sessionId).x += movement.x * 10;
-
+            this.players.get(sessionId)!.x += movement.x * 10;
         } else if (movement.y) {
-            this.players.get(sessionId).y += movement.y * 10;
+            this.players.get(sessionId)!.y += movement.y * 10;
         }
     }
 }
@@ -36,7 +35,7 @@ export class State extends Schema {
 export class StateHandlerRoom extends Room<State> {
     maxClients = 4;
 
-    onCreate (options) {
+    onCreate(options) {
         console.log("StateHandlerRoom created!", options);
 
         this.setState(new State());
@@ -51,16 +50,16 @@ export class StateHandlerRoom extends Room<State> {
         return true;
     }
 
-    onJoin (client: Client) {
+    onJoin(client: Client) {
         client.send("hello", "world");
         this.state.createPlayer(client.sessionId);
     }
 
-    onLeave (client) {
+    onLeave(client) {
         this.state.removePlayer(client.sessionId);
     }
 
-    onDispose () {
+    onDispose() {
         console.log("Dispose StateHandlerRoom");
     }
 

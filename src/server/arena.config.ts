@@ -18,7 +18,6 @@ export default Arena({
     getId: () => "Your Colyseus App",
 
     // initializeTransport: (options) => new uWebSocketsTransport(options),
-
     initializeGameServer: (gameServer) => {
         // Define "lobby" room
         gameServer.define("lobby", LobbyRoom);
@@ -52,24 +51,19 @@ export default Arena({
         // Define "custom_lobby" room
         gameServer.define("custom_lobby", CustomLobbyRoom);
 
-        gameServer.onShutdown(function(){
+        gameServer.onShutdown(function () {
             console.log(`game server is going down.`);
-          });
-
+        });
 
     },
-
     initializeExpress: (app) => {
-        app.use('/', serveIndex(path.join(__dirname, "static"), {'icons': true}))
+        app.use('/', serveIndex(path.join(__dirname, "static"), { 'icons': true }))
         app.use('/', express.static(path.join(__dirname, "static")));
-
         // app.use(serveIndex(path.join(__dirname, "static"), {'icons': true}))
         // app.use(express.static(path.join(__dirname, "static")));
-
         // (optional) attach web monitoring panel
         app.use('/colyseus', monitor());
     },
-
 
     beforeListen: () => {
         /**
