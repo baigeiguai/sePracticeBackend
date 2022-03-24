@@ -11,6 +11,12 @@ export class ChatRoom extends Room {
             console.log("ChatRoom received message from", client.sessionId, ":", message);
             this.broadcast("messages", `(${client.sessionId}) ${message}`);
         });
+        this.onMessage("keydown", (client, message) => {
+            console.log("reveived keydown", message, "from client", client.sessionId);
+            this.broadcast("keydown", message, {
+                except: client,
+            });
+        });
     }
 
     onJoin(client) {

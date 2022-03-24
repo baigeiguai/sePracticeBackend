@@ -54,7 +54,7 @@ export default Arena({
         gameServer.onShutdown(function () {
             console.log(`game server is going down.`);
         });
-
+        // gameServer.listen(10001);
     },
     initializeExpress: (app) => {
         app.use('/', serveIndex(path.join(__dirname, "static"), { 'icons': true }))
