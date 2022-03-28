@@ -9,22 +9,25 @@ export default class HelloWorldScene extends Phaser.Scene {
     }
 
     init() {
-        // this.client = new Colyseus.Client("ws://localhost:2567");
-        this.client = new Colyseus.Client("ws://f-jason.site:2567");
+        this.client = new Colyseus.Client("ws://localhost:10001");
+        // this.client = new Colyseus.Client("ws://f-jason.site:10001");
     }
     preload() {
     }
 
     async create() {
-        this.room = await this.client.joinOrCreate("chat");
+        this.room = await this.client.joinOrCreate("default");
         console.log("joined", this.room.sessionId);
 
         this.input.keyboard.on("keydown", (evnt: KeyboardEvent) => {
             console.log("keyboard:", evnt);
-            this.room.send('keydown', evnt.key);
+            this.room.send("keydown", evnt.key);
         });
-        this.room.onMessage('keydown', (message) => {
-            console.log(message);
+        this.room.onMessage("keydown", (message) => {
+            console.log("client::received keydown", message);
         });
+        this.room.onMessage("message", (message) => {
+            console.log("client::received message", message);
+        })
     }
 }
