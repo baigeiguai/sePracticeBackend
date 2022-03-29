@@ -15,9 +15,9 @@
 // listen(arenaConfig);
 import { Server } from "colyseus"
 import { DefaultRoom } from "./rooms/DefaultRoom";
-const port = 10001 
+const port = 2567 
 const gameServer = new Server()
-gameServer.define("default", DefaultRoom);
+gameServer.define("DefaultRoom", DefaultRoom);
 gameServer.listen(port)
 console.log(`[GameServer] Listening on Port: ${port}`)
 

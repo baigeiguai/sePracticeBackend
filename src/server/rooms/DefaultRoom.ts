@@ -1,10 +1,9 @@
 import { Room } from "colyseus";
 
 export class DefaultRoom extends Room {
-    maxClients: number = 6;
+    maxClients: number = 2;
 
-    onCreate(options) {
-        console.log("DefaultRoom created", options);
+    onCreate() {
         this.onMessage("message", (client, message) => {
             console.log("DefaultRoom::message from", client.sessionId, message);
             this.broadcast("message", `(${client.sessionId}) ${message}`);
@@ -17,10 +16,12 @@ export class DefaultRoom extends Room {
         });
     }
     onJoin(client) {
-        this.broadcast("message", `${client.sessionId} joined`);
+        // this.broadcast("message", `${client.sessionId} joined`);
+        console.log(client.sessionId, "joined");
     }
     onLeave(client) {
-        this.broadcast("message", `${client.sessionId} leaved`);
+        // this.broadcast("message", `${client.sessionId} leaved`);
+        console.log(client.sessionId, "left");
     }
     onDispose() {
         console.log("DefaultRoom::disposeed");

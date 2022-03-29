@@ -9,7 +9,7 @@ export default class HelloWorldScene extends Phaser.Scene {
     }
 
     init() {
-        this.client = new Colyseus.Client("ws://localhost:10001");
+        this.client = new Colyseus.Client("ws://localhost:2567");
         // this.client = new Colyseus.Client("ws://f-jason.site:10001");
     }
     preload() {
