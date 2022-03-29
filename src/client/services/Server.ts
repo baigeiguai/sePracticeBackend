@@ -7,6 +7,7 @@ import { Client } from "colyseus.js";
 export default class Server {
     private client: Client;
     constructor() {
+        console.log("connect to server");
         this.client = new Client("ws://localhost:2567");
         console.log("client id", this.client);
     }
