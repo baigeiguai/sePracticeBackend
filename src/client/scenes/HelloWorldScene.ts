@@ -1,33 +1,39 @@
-import Phaser from "phaser"
-import * as Colyseus from "colyseus.js"
+import Phaser from 'phaser'
 
-export default class HelloWorldScene extends Phaser.Scene {
-    private client: Colyseus.Client = new Colyseus.Client();
-    private room!: Colyseus.Room;
-    constructor() {
-        super("hello-world");
+export default class HelloWorldScene extends Phaser.Scene
+{
+	constructor()
+	{
+		super('hello-world')
+	}
+
+	preload()
+    {
+        this.load.setBaseURL('http://labs.phaser.io')
+
+        this.load.image('sky', 'assets/skies/space3.png')
+        this.load.image('logo', 'assets/sprites/phaser3-logo.png')
+        this.load.image('red', 'assets/particles/red.png')
     }
 
-    init() {
-        this.client = new Colyseus.Client("ws://localhost:2567");
-        // this.client = new Colyseus.Client("ws://f-jason.site:10001");
-    }
-    preload() {
-    }
+    create()
+    {
+        this.add.image(400, 300, 'sky')
 
-    async create() {
-        this.room = await this.client.joinOrCreate("default");
-        console.log("joined", this.room.sessionId);
+        const particles = this.add.particles('red')
 
-        this.input.keyboard.on("keydown", (evnt: KeyboardEvent) => {
-            console.log("keyboard:", evnt);
-            this.room.send("keydown", evnt.key);
-        });
-        this.room.onMessage("keydown", (message) => {
-            console.log("client::received keydown", message);
-        });
-        this.room.onMessage("message", (message) => {
-            console.log("client::received message", message);
+        const emitter = particles.createEmitter({
+            speed: 100,
+            scale: { start: 1, end: 0 },
+            blendMode: 'ADD'
         })
+
+        const logo = this.physics.add.image(400, 100, 'logo')
+
+        logo.setVelocity(100, 200)
+        logo.setBounce(1, 1)
+        logo.setCollideWorldBounds(true)
+
+        emitter.startFollow(logo)
     }
 }
