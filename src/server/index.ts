@@ -19,7 +19,7 @@ import  cors from  'cors';
 import { Server } from "colyseus"
 import { DefaultRoom } from "./rooms/DefaultRoom";
 import {monitor} from "@colyseus/monitor";
-import TicTacToe from "./rooms/Tictactoe";
+import TicTacToe from "./rooms/TicTacToe";
 const port = 2567 
 
 const app=express();
