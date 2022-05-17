@@ -17,7 +17,7 @@ export  enum  RoomState{
 *
 * */
 export interface IGameState{
-    gamestate: RoomState;
+    roomstate: RoomState;
     activePlayerNumber: number;
     // it's not equal to the browser size ,it's relative.
     // just to say, it maybe can be set to const value ,like 100,
