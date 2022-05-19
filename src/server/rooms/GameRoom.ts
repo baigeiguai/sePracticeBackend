@@ -1,13 +1,19 @@
 import {Client,Room} from "colyseus";
 import GameState from "../../server/mySchema/GameState";
+import MoveCommand from "../../server/commands/MoveCommand";
 import {Dispatcher} from "@colyseus/command";
 const ROOMMAXNUMBER = 2
 class GameRoom extends  Room<GameState>{
+    private  dispatcher = new Dispatcher(this)
     onCreate() {
         this.setState(new GameState())
-        /*
-        *    once the number of players meet the  ROOMMAXNUMBER, the game starts.
-        * */
+        this.onMessage("move-command",(client:Client,message:{playerIndex:number,downKey:string})=>{
+            this.dispatcher.dispatch(new MoveCommand(),{
+                client:client,
+                playerIndex:message.playerIndex,
+                downKey:message.downKey
+            })
+        })
     }
     onJoin(client: Client, options?: any, auth?: any): void | Promise<any> {
         this.state.activePlayerNumber++
@@ -24,7 +30,6 @@ class GameRoom extends  Room<GameState>{
         }
         return true
     }
-
 }
 
 export  default  GameRoom;
