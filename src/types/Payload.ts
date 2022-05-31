@@ -1,11 +1,7 @@
 import {Client} from "colyseus";
+import {CommandNode} from "../types/Common";
 
 export   type Payload = {
     client:Client
-    playerId:string
-    key:string
-    playerPositionX:number
-    playerPositionY:number
-    MousePositionX:number
-    MousePositionY:number
+    commandNode:CommandNode
 }

@@ -1,19 +1,15 @@
 import {Command} from "@colyseus/command";
 import gameRoom from "../../server/rooms/GameRoom";
 import {Payload} from "../../types/Payload";
+import {CommandType} from "../../types/Common";
 
 
 export  default  class  SpawnCommand extends Command<gameRoom,Payload>{
     execute(data:Payload){
         this.room.clients.forEach(client=>{
-            if (client.sessionId != data.playerId){
-                this.room.send(client,"spawn",{
-                    playerId:data.playerId,
-                    key:data.key,
-                    playerPositionX:data.playerPositionX,
-                    playerPositionY:data.playerPositionY,
-                    MousePositionX:data.MousePositionX,
-                    MousePositionY:data.MousePositionY
+            if (client.sessionId != data.client.sessionId){
+                this.room.send(client,CommandType.SPWAN,{
+                    commandNode:data.commandNode
                 })
             }
         })

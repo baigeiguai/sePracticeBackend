@@ -3,20 +3,17 @@ import {Command} from "@colyseus/command";
 import {Client} from "colyseus";
 import {Payload} from "../../types/Payload";
 
+import {CommandType} from "../../types/Common";
+
 
 
 
 export  default  class KeydownCommand extends  Command<GameRoom ,Payload>{
     execute(data:Payload) {
         this.room.clients.forEach(client=>{
-            if (client.sessionId != data.playerId){
-                this.room.send(client,"keydown",{
-                    playerId:data.playerId,
-                    key:data.key,
-                    playerPositionX:data.playerPositionX,
-                    playerPositionY:data.playerPositionY,
-                    MousePositionX:data.MousePositionX,
-                    MousePositionY:data.MousePositionY
+            if (client.sessionId != data.client.sessionId){
+                this.room.send(client,CommandType.KEYEVENT,{
+                    commandNode:data.commandNode
                 })
             }
         })

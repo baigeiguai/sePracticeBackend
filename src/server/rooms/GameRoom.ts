@@ -6,6 +6,7 @@ import {Payload} from "../../types/Payload";
 import MouseMoveCommand from "../../server/commands/MouseMoveCommand";
 import SpawnCommand from "../../server/commands/SpawnCommand";
 import KillCommand from "../../server/commands/KillCommand";
+import {CommandNode, CommandType} from "~/types/Common";
 const ROOMMAXNUMBER = 2
 class GameRoom extends  Room<GameState>{
     private  keydownDispatcher = new Dispatcher(this)
@@ -14,53 +15,37 @@ class GameRoom extends  Room<GameState>{
     private  killDispatcher = new Dispatcher( this )
     onCreate() {
         this.setState(new GameState())
-        this.onMessage("keydown",(client:Client,message:Payload)=>{
+        this.onMessage(CommandType.KEYEVENT,(client:Client,message:{commandNode:CommandNode})=>{
             this.keydownDispatcher.dispatch(new KeydownCommand(),{
                 client:client,
-                playerId:message.playerId,
-                key:message.key,
-                playerPositionX:message.playerPositionX,
-                playerPositionY:message.playerPositionY,
-                MousePositionX:message.MousePositionX,
-                MousePositionY:message.MousePositionY
+                commandNode:message.commandNode
             })
         })
-        this.onMessage("pointermove",(client :Client,message:Payload)=>{
+        this.onMessage(CommandType.PTREVENT,(client :Client,message:{commandNode:CommandNode})=>{
             this.mouseMoveDispatcher.dispatch(new MouseMoveCommand(),{
                 client:client,
-                playerId:message.playerId,
-                key:message.key,
-                playerPositionX:message.playerPositionX,
-                playerPositionY:message.playerPositionY,
-                MousePositionX:message.MousePositionX,
-                MousePositionY:message.MousePositionY
+                commandNode:message.commandNode
             })
         })
-        this.onMessage("spawn",(client :Client,message:Payload)=>{
+        this.onMessage(CommandType.SPWAN,(client :Client,message:{commandNode:CommandNode})=>{
             this.spawnDispatcher.dispatch(new SpawnCommand(),{
                 client:client,
-                playerId:message.playerId,
-                key:message.key,
-                playerPositionX:message.playerPositionX,
-                playerPositionY:message.playerPositionY,
-                MousePositionX:message.MousePositionX,
-                MousePositionY:message.MousePositionY
+                commandNode:message.commandNode
             })
         })
-        this.onMessage("kill",(client :Client,message:Payload)=>{
-            this.keydownDispatcher.dispatch(new KillCommand(),{
+        this.onMessage(CommandType.KILL,(client :Client,message:{commandNode:CommandNode})=>{
+            this.killDispatcher.dispatch(new KillCommand(),{
                 client:client,
-                playerId:message.playerId,
-                key:message.key,
-                playerPositionX:message.playerPositionX,
-                playerPositionY:message.playerPositionY,
-                MousePositionX:message.MousePositionX,
-                MousePositionY:message.MousePositionY
+                commandNode:message.commandNode
             })
         })
     }
     onJoin(client: Client, options?: any, auth?: any): void | Promise<any> {
         this.state.activePlayerNumber++
+        /*
+        *
+        *   here is to be ensured...
+        * */
         if(this.state.activePlayerNumber==ROOMMAXNUMBER){
             this.broadcast("start-game")
         }
