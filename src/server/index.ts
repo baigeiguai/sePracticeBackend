@@ -14,6 +14,6 @@ const server = http.createServer(app)
 const gameServer = new Server ({
     server:server
 })
-gameServer.define("game-server",GameRoom)
+gameServer.define("game-server",GameRoom).sortBy({clients:-1})
 app.use('/colyseus',monitor())
 gameServer.listen(port)

@@ -1,6 +1,6 @@
 import {Schema,type ,ArraySchema} from '@colyseus/schema'
 import {IGameState, RoomState} from "../../types/IGameState";
-import {RoleType} from "~/types/Common";
+import {RoleType} from "../../types/Common";
 
 export class PlayerInfo extends  Schema{
     @type("string")

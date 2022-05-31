@@ -6,7 +6,7 @@ import {Payload} from "../../types/Payload";
 import MouseMoveCommand from "../../server/commands/MouseMoveCommand";
 import SpawnCommand from "../../server/commands/SpawnCommand";
 import KillCommand from "../../server/commands/KillCommand";
-import {CommandNode, CommandType} from "~/types/Common";
+import {CommandNode, CommandType} from "../../types/Common";
 const ROOMMAXNUMBER = 2
 class GameRoom extends  Room<GameState>{
     private  keydownDispatcher = new Dispatcher(this)
@@ -48,6 +48,7 @@ class GameRoom extends  Room<GameState>{
         * */
         if(this.state.activePlayerNumber==ROOMMAXNUMBER){
             this.broadcast("start-game")
+            this.lock();
         }
     }
     /*
