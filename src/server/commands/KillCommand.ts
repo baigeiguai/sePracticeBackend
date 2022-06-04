@@ -7,7 +7,7 @@ import {CommandType} from "../../types/Common";
 
 export  default  class  KillCommand extends Command<gameRoom,Payload>{
     execute(data:Payload){
-        this.room.broadcast(CommandType.KEYEVENT,data.commandNode,{
+        this.room.broadcast(CommandType.KILL,data.commandNode,{
             except:data.client
         })
     }
