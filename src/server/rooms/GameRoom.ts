@@ -15,28 +15,28 @@ class GameRoom extends  Room<GameState>{
     private  killDispatcher = new Dispatcher( this )
     onCreate() {
         this.setState(new GameState())
-        this.onMessage(CommandType.KEYEVENT,(client:Client,message:{commandNode:CommandNode})=>{
+        this.onMessage(CommandType.KEYEVENT,(client:Client,message:CommandNode)=>{
             this.keydownDispatcher.dispatch(new KeydownCommand(),{
                 client:client,
-                commandNode:message.commandNode
+                commandNode:message
             })
         })
-        this.onMessage(CommandType.PTREVENT,(client :Client,message:{commandNode:CommandNode})=>{
+        this.onMessage(CommandType.PTREVENT,(client :Client,message:CommandNode)=>{
             this.mouseMoveDispatcher.dispatch(new MouseMoveCommand(),{
                 client:client,
-                commandNode:message.commandNode
+                commandNode:message
             })
         })
-        this.onMessage(CommandType.SPWAN,(client :Client,message:{commandNode:CommandNode})=>{
+        this.onMessage(CommandType.SPWAN,(client :Client,message:CommandNode)=>{
             this.spawnDispatcher.dispatch(new SpawnCommand(),{
                 client:client,
-                commandNode:message.commandNode
+                commandNode:message
             })
         })
-        this.onMessage(CommandType.KILL,(client :Client,message:{commandNode:CommandNode})=>{
+        this.onMessage(CommandType.KILL,(client :Client,message:CommandNode)=>{
             this.killDispatcher.dispatch(new KillCommand(),{
                 client:client,
-                commandNode:message.commandNode
+                commandNode:message
             })
         })
     }

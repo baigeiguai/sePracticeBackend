@@ -6,12 +6,8 @@ import {CommandType} from "../../types/Common";
 
 export  default  class  MouseMoveCommand extends Command<gameRoom,Payload>{
     execute(data:Payload){
-        this.room.clients.forEach(client=>{
-            if (client.sessionId != data.client.sessionId){
-                this.room.send(client,CommandType.PTREVENT,{
-                    commandNode:data.commandNode
-                })
-            }
+        this.room.broadcast(CommandType.PTREVENT,data.commandNode,{
+            except:data.client
         })
     }
 }

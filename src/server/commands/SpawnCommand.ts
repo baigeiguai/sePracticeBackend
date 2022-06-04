@@ -6,12 +6,8 @@ import {CommandType} from "../../types/Common";
 
 export  default  class  SpawnCommand extends Command<gameRoom,Payload>{
     execute(data:Payload){
-        this.room.clients.forEach(client=>{
-            if (client.sessionId != data.client.sessionId){
-                this.room.send(client,CommandType.SPWAN,{
-                    commandNode:data.commandNode
-                })
-            }
+        this.room.broadcast(CommandType.SPWAN,data.commandNode,{
+            except:data.client
         })
     }
 }
