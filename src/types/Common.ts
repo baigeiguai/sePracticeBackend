@@ -1,3 +1,4 @@
+import {PlayerInfo} from "../server/mySchema/GameState";
 
 export enum RoleType {
     NULL,
@@ -18,9 +19,14 @@ export class Buff {
         this.base_val = val;
     }
 }
+export class PlayerMessage {
+    public name: string = "";
+    public team: number = -1;
+    public role: RoleType = RoleType.NULL;
+}
 
 export class CommandNode {
-    playerId: string="-1";
+    playerIf :  PlayerMessage = new PlayerMessage();
     key: string="";
     isDown: boolean=false;
     playerPositionX: number = 0;
