@@ -22,7 +22,7 @@ export default  class GameState extends Schema implements IGameState{
     roomstate=RoomState.MATCHING
     @type('number')
     activePlayerNumber:number=0
-    @ type([ PlayerInfo ]) players = new SetSchema<PlayerInfo>() ;
+    @ type({ set: PlayerInfo }) players = new SetSchema<PlayerInfo>() ;
     constructor() {
         super();
     }
