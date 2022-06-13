@@ -1,5 +1,5 @@
 import {Client,Room} from "colyseus";
-import GameState from "../../server/mySchema/GameState";
+import GameState, {PlayerInfo} from "../../server/mySchema/GameState";
 import {Dispatcher} from "@colyseus/command";
 import KeydownCommand from "../../server/commands/KeydownCommand";
 import {Payload} from "../../types/Payload";
@@ -59,6 +59,18 @@ class GameRoom extends  Room<GameState>{
             return false
         }
         return true
+    }
+    onLeave(client: Client, consented?: boolean): void | Promise<any> {
+        for(let i=0;i<this.state.players.size;i++){
+            if (this.state.players[i].sessionId===client.sessionId){
+                let ct:CommandNode=new CommandNode()
+                ct.playerIf.name=this.state.players[i].name
+                this.broadcast(CommandType.KILL,ct,{
+                    except:client
+                })
+                break
+            }
+        }
     }
 }
 
