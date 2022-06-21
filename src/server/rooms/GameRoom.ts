@@ -47,8 +47,8 @@ class GameRoom extends  Room<GameState>{
         *
         *   here is to be ensured...
         * */
-        if(this.state.activePlayerNumber==2&& canStart===false){
-            canStart=true
+        if(this.state.activePlayerNumber==2&& this.canStart===false){
+            this.canStart=true
             this.broadcast("start-game")
             this.lock();
         }
