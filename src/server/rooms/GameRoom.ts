@@ -50,7 +50,6 @@ class GameRoom extends  Room<GameState>{
         if(this.state.activePlayerNumber==2&& this.canStart===false){
             this.canStart=true
             this.broadcast("start-game")
-            this.lock();
         }
     }
     /*
