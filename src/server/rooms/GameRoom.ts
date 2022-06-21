@@ -7,12 +7,13 @@ import MouseMoveCommand from "../../server/commands/MouseMoveCommand";
 import SpawnCommand from "../../server/commands/SpawnCommand";
 import KillCommand from "../../server/commands/KillCommand";
 import {CommandNode, CommandType} from "../../types/Common";
-const ROOMMAXNUMBER = 2
+const ROOMMAXNUMBER = 3
 class GameRoom extends  Room<GameState>{
     private  keydownDispatcher = new Dispatcher(this)
     private  mouseMoveDispatcher = new Dispatcher(this)
     private  spawnDispatcher = new Dispatcher(this)
     private  killDispatcher = new Dispatcher( this )
+    private  canStart = false
     onCreate() {
         this.setState(new GameState())
         this.onMessage(CommandType.KEYEVENT,(client:Client,message:CommandNode)=>{
@@ -46,7 +47,8 @@ class GameRoom extends  Room<GameState>{
         *
         *   here is to be ensured...
         * */
-        if(this.state.activePlayerNumber==ROOMMAXNUMBER){
+        if(this.state.activePlayerNumber==2&& canStart===false){
+            canStart=true
             this.broadcast("start-game")
             this.lock();
         }
