@@ -1,8 +1,7 @@
 import {Client,Room} from "colyseus";
-import GameState, {PlayerInfo} from "../../server/mySchema/GameState";
+import GameState from "../../server/mySchema/GameState";
 import {Dispatcher} from "@colyseus/command";
 import KeydownCommand from "../../server/commands/KeydownCommand";
-import {Payload} from "../../types/Payload";
 import MouseMoveCommand from "../../server/commands/MouseMoveCommand";
 import SpawnCommand from "../../server/commands/SpawnCommand";
 import KillCommand from "../../server/commands/KillCommand";
@@ -13,7 +12,6 @@ class GameRoom extends  Room<GameState>{
     private  mouseMoveDispatcher = new Dispatcher(this)
     private  spawnDispatcher = new Dispatcher(this)
     private  killDispatcher = new Dispatcher( this )
-    private  canStart = false
     onCreate() {
         this.setState(new GameState())
         this.onMessage(CommandType.KEYEVENT,(client:Client,message:CommandNode)=>{
@@ -47,8 +45,7 @@ class GameRoom extends  Room<GameState>{
         *
         *   here is to be ensured...
         * */
-        if(this.state.activePlayerNumber==2&& this.canStart===false){
-            this.canStart=true
+        if(this.state.activePlayerNumber>=2){
             this.broadcast("start-game")
         }
     }
